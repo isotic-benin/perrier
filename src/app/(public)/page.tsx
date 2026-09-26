@@ -84,127 +84,52 @@ export default async function AccueilPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organisationJsonLd) }}
       />
 
-      {/* ═══ HERO ═══ */}
-      <HeroCarousel bannieres={bannieres}>
-        <div className="relative z-10 mx-auto max-w-[1400px] px-4 py-16 sm:px-6 md:py-24 lg:py-28">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            {/* Left: CTA */}
-            <div className="flex flex-col gap-6">
-              <div className="inline-flex items-center gap-2 self-start rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur">
-                <span className="size-2 rounded-full bg-[#d99a2b]" />
-                Saison de chauffage 2026
-              </div>
-              <h1 className="text-[34px] font-bold leading-[1.08] tracking-[-0.02em] text-white sm:text-[44px] lg:text-[54px]">
-                Granulés de bois,{" "}
-                <span className="text-[#e0a95a]">bois de chauffage</span> et briquettes de bois
-              </h1>
-              <p className="max-w-lg text-[16px] leading-relaxed text-white/80">
-                Commandez en ligne, retirez en dépôt ou faites-vous
-                livrer à domicile. Des combustibles de haute qualité, 100 % naturels,
-                livrés partout en France.
-              </p>
-
-              {/* Depot Search Block */}
-              <div className="mt-2 rounded-2xl border border-white/15 bg-white/95 p-6 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.7)] backdrop-blur">
-                <h3 className="mb-3 flex items-center gap-2 font-heading text-[16px] font-semibold text-foreground">
-                  <FaLocationDot className="size-[18px] text-primary" />
-                  Où souhaitez-vous commander ?
-                </h3>
-                <form action="/depots" method="get" className="flex flex-col gap-2.5 sm:flex-row">
-                  <input
-                    type="text"
-                    name="cp"
-                    maxLength={5}
-                    placeholder="Saisissez votre code postal..."
-                    className="h-[46px] flex-1 rounded-lg border border-border bg-background px-4 text-[14px] text-foreground placeholder:text-muted-foreground/70 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-3 focus:ring-primary/15"
-                  />
-                  <Button type="submit" size="lg" className="h-[46px] px-8 uppercase tracking-[0.1em]">
-                    Rechercher
-                  </Button>
-                </form>
-              </div>
-
-              <div className="flex flex-wrap gap-5 text-[13px] font-medium text-white/80">
-                <span className="flex items-center gap-1.5">
-                  <FaCircleCheck className="size-4 text-[#e0a95a]" /> Stock garanti
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <FaCircleCheck className="size-4 text-[#e0a95a]" /> Livraison sous quelques jours
-                </span>
-              </div>
+      {/* ═══ NEW BENTO HERO ═══ */}
+      <section className="mx-auto max-w-[1400px] px-4 pt-8 pb-8 sm:px-6">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 h-auto lg:h-[600px]">
+          {/* Left Large Area */}
+          <div className="group relative overflow-hidden rounded-2xl bg-[#2a2a2a] md:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[300px]">
+            <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: "url('/hero_main.png')" }}></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div className="absolute bottom-0 left-0 p-8 md:p-12">
+              <h2 className="mb-4 text-[32px] font-bold leading-tight text-white md:text-[44px]">Granulés haute performance</h2>
+              <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-black uppercase tracking-widest backdrop-blur-sm bg-black/20">
+                <Link href="/produits">DÉCOUVRIR</Link>
+              </Button>
             </div>
+          </div>
 
-            {/* Right: Feature Cards */}
-            <div className="hidden grid-cols-2 gap-4 lg:grid">
-              {featureCards.map(({ icon: Icon, color, bg, title, desc }) => (
-                <div
-                  key={title}
-                  className="flex flex-col gap-3 rounded-2xl border border-white/15 bg-white/95 p-5 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.6)] backdrop-blur transition-transform hover:-translate-y-1"
-                >
-                  <div
-                    className="flex size-11 items-center justify-center rounded-xl"
-                    style={{ backgroundColor: bg }}
-                  >
-                    <Icon className="size-5" style={{ color }} />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-[14px] text-foreground">{title}</h4>
-                    <p className="mt-0.5 text-[12px] text-muted-foreground">{desc}</p>
-                  </div>
-                </div>
-              ))}
+          {/* Middle Top */}
+          <div className="group relative overflow-hidden rounded-2xl bg-[#e6e2db] lg:col-span-1 lg:row-span-1 min-h-[250px]">
+            <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: "url('/hero_top.png')" }}></div>
+            <div className="absolute inset-0 bg-black/20 transition-colors group-hover:bg-black/30"></div>
+            <div className="absolute inset-0 p-8 flex flex-col justify-start">
+              <h3 className="text-[28px] font-medium leading-tight text-[#1a1a1a] drop-shadow-md">L'énergie du<br /><span className="font-extrabold text-[36px]">bois</span></h3>
+              <Link href="/produits" className="mt-3 text-[13px] font-bold text-white drop-shadow-md uppercase tracking-[0.1em] underline underline-offset-4 hover:text-[#f0c07a]">DÉCOUVRIR</Link>
+            </div>
+          </div>
+
+          {/* Middle Bottom */}
+          <div className="group relative overflow-hidden rounded-2xl bg-[#f5f2eb] lg:col-span-1 lg:row-span-1 min-h-[250px]">
+            <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: "url('/hero_bottom.png')" }}></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-white/60 to-transparent"></div>
+            <div className="absolute inset-0 p-8 flex flex-col justify-center text-[#1a1a1a]">
+              <h3 className="mb-2 text-[26px] font-medium leading-tight drop-shadow-sm">Confort<br />avec les<br /><span className="font-extrabold text-[32px]">granulés</span></h3>
+              <Link href="/produits" className="mt-2 text-[13px] font-bold text-[#1a1a1a] uppercase tracking-[0.1em] underline underline-offset-4 hover:text-[#b26b1e]">DÉCOUVRIR</Link>
+            </div>
+          </div>
+
+          {/* Right Area */}
+          <div className="group relative overflow-hidden rounded-2xl bg-[#ebe6df] lg:col-span-1 lg:row-span-2 min-h-[300px]">
+            <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-90" style={{ backgroundImage: "url('/hero_right.png')" }}></div>
+            <div className="absolute inset-0 p-8 flex flex-col justify-start">
+              <h2 className="text-[32px] font-light leading-tight text-[#1a1a1a] drop-shadow-sm">Chaleur<br /><span className="font-extrabold text-[40px]">durable</span></h2>
             </div>
           </div>
         </div>
-      </HeroCarousel>
-
-      {/* ═══ TRUST STRIP ═══ */}
-      <section className="w-full border-y border-border bg-card">
-        <div className="mx-auto grid max-w-[1400px] grid-cols-2 gap-6 px-6 py-8 lg:grid-cols-4">
-          {trustItems.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="flex items-center gap-3.5">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-accent text-primary">
-                <Icon className="size-5" />
-              </div>
-              <div>
-                <h3 className="text-[13.5px] font-semibold text-foreground">{title}</h3>
-                <p className="text-[12px] text-muted-foreground">{text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
       </section>
 
-      {/* ═══ WILLKOMMEN ═══ */}
-      <section className="mx-auto max-w-[1400px] px-4 pt-16 sm:px-6">
-        <div className="overflow-hidden rounded-3xl border border-border bg-accent/60 p-8 md:p-12">
-          <span className="text-[12px] font-bold uppercase tracking-[0.16em] text-primary">
-            Bienvenue
-          </span>
-          <h2 className="mt-3 text-[26px] font-bold text-foreground md:text-[32px]">
-            Bienvenue chez Perrier Bois !
-          </h2>
-          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-muted-foreground">
-            Nous proposons des granulés de bois de haute qualité – 100 % naturels et certifiés DIN Plus et EN Plus A1.
-            Nos solutions garantissent un haut pouvoir calorifique, une faible teneur en cendres et une combustion propre et économique pour votre logement ou votre entreprise.
-            Un chauffage naturel et économique avec des granulés de bois de première qualité. Livraison à domicile sur palettes prêtes à l'emploi.
-          </p>
-          <ul className="mt-6 grid gap-3 text-[13.5px] text-foreground md:grid-cols-3">
-            <li className="flex gap-2.5">
-              <FaLeaf className="mt-0.5 size-4 shrink-0 text-[#2f7a50]" />
-              100 % bois naturel – sans additifs chimiques, liants ni écorce
-            </li>
-            <li className="flex gap-2.5">
-              <FaFire className="mt-0.5 size-4 shrink-0 text-[#b26b1e]" />
-              Haut pouvoir calorifique – économies d'énergie prouvées
-            </li>
-            <li className="flex gap-2.5">
-              <FaTruck className="mt-0.5 size-4 shrink-0 text-[#2e5e8c]" />
-              Livraison garantie – logistique spécialisée avec camion-grue à domicile
-            </li>
-          </ul>
-        </div>
-      </section>
+
 
       {/* ═══ CATEGORIES ═══ */}
       <section className="mx-auto max-w-[1400px] px-4 pt-16 pb-4 sm:px-6">
@@ -325,23 +250,7 @@ export default async function AccueilPage() {
         </div>
       </section>
 
-      {/* ═══ PROMOTIONS ═══ */}
-      {baseDisponible && promotions.length > 0 && (
-        <section className="mx-auto mt-16 max-w-[1400px] px-4 sm:px-6">
-          <div className="mb-8">
-            <span className="text-[12px] font-bold uppercase tracking-[0.16em] text-primary">
-              Offres
-            </span>
-            <h2 className="mt-2 text-[26px] font-bold text-foreground md:text-[30px]">
-              Produits en promotion
-            </h2>
-            <p className="mt-1.5 text-[14px] text-muted-foreground">
-              Stock limité, profitez-en vite
-            </p>
-          </div>
-          <ProductCarousel produits={promotions} />
-        </section>
-      )}
+
 
       {/* ═══ TÉMOIGNAGES ═══ */}
       {baseDisponible && temoignages.length > 0 && (
