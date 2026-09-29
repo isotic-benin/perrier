@@ -7,7 +7,7 @@ import { creerCommande } from "@/lib/commandes";
 import { dbConnect } from "@/lib/db";
 import Order from "@/models/Order";
 import Settings from "@/models/Settings";
-import { envoyerEmailPaiement } from "@/lib/email";
+import { envoyerEmailPaiement, envoyerNotificationCommande } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
   const user = await getCurrentUser();
@@ -66,6 +66,31 @@ export async function POST(request: NextRequest) {
     numeroCommande: commande.numeroCommande,
     total: commande.total,
     rib,
+  });
+
+  await envoyerNotificationCommande({
+    commandeId: String(commande._id),
+    numeroCommande: commande.numeroCommande,
+    dateCommande: commande.dateCommande,
+    clientNom: user?.name ?? "",
+    email: commande.email,
+    telephone: commande.adresseLivraison.telephone,
+    articles: commande.articles.map((article) => ({
+      nom: article.nom,
+      variante: article.variante,
+      quantite: article.quantite,
+      prixUnitaire: article.prixUnitaire,
+      sousTotal: article.sousTotal,
+    })),
+    adresseLivraison: commande.adresseLivraison,
+    adresseFacturation: commande.adresseFacturation,
+    sousTotal: commande.sousTotal,
+    reduction: commande.reduction,
+    couponApplique: commande.couponApplique,
+    fraisLivraison: commande.fraisLivraison,
+    total: commande.total,
+    modeLivraison: validation.data.modeLivraison,
+    methodePaiement: commande.methodePaiement,
   });
 
   return apiSuccess({ commande }, { status: 201 });

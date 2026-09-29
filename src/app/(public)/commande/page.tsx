@@ -9,11 +9,11 @@ import { calculerSousTotal, nombreArticles } from "@/store/cart";
 import { formaterPrix } from "@/lib/format";
 import {
   OPTIONS_LIVRAISON,
-  SEUIL_LIVRAISON_GRATUITE,
   calculerFraisLivraison,
 } from "@/lib/livraison";
 
 const ETAPES = ["Adresse", "Livraison", "Récapitulatif"];
+const MODE_LIVRAISON = OPTIONS_LIVRAISON[0].id;
 
 export default function CommandePage() {
   const router = useRouter();
@@ -28,7 +28,6 @@ export default function CommandePage() {
     telephone: "",
   });
   const [email, setEmail] = useState("");
-  const [modeLivraison, setModeLivraison] = useState<string>("standard");
   const [chargement, setChargement] = useState(false);
   const [erreur, setErreur] = useState<string | null>(null);
   const [envoye, setEnvoye] = useState(false);
@@ -36,7 +35,7 @@ export default function CommandePage() {
 
   const sousTotal = calculerSousTotal(articles);
   const totalArticles = nombreArticles(articles);
-  const fraisLivraison = calculerFraisLivraison(sousTotal, modeLivraison);
+  const fraisLivraison = calculerFraisLivraison();
   const total = sousTotal + fraisLivraison;
 
   const adresseValide =
@@ -71,7 +70,7 @@ export default function CommandePage() {
           adresseLivraison: adresse,
           email,
           methodePaiement: "virement",
-          modeLivraison,
+          modeLivraison: MODE_LIVRAISON,
         }),
       });
 
@@ -249,38 +248,23 @@ export default function CommandePage() {
       {etape === 1 && (
         <div className="space-y-4 rounded-2xl border border-border bg-card p-6 shadow-[0_1px_2px_rgba(42,33,27,0.03)] sm:p-8">
           <h2 className="text-lg font-semibold">Mode de livraison</h2>
-          {sousTotal >= SEUIL_LIVRAISON_GRATUITE && (
-            <p className="rounded-md bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-700">
-              Livraison gratuite incluse !
-            </p>
-          )}
-          {OPTIONS_LIVRAISON.map((option) => (
-            <button
-              key={option.id}
-              type="button"
-              onClick={() => setModeLivraison(option.id)}
-              className={`flex w-full items-center justify-between rounded-2xl border bg-card p-4 text-left transition-colors ${
-                modeLivraison === option.id
-                  ? "border-primary ring-2 ring-primary/20"
-                  : ""
-              }`}
-            >
-              <span className="flex items-center gap-3">
-                <FaTruck className="size-5 text-muted-foreground" />
-                <span>
-                  <span className="block font-medium">{option.libelle}</span>
-                  <span className="block text-xs text-muted-foreground">
-                    {option.delai}
-                  </span>
+          <p className="rounded-md bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-700">
+            Livraison offerte sur toute la France métropolitaine.
+          </p>
+          <div className="flex w-full items-center justify-between rounded-2xl border border-primary bg-card p-4 ring-2 ring-primary/20">
+            <span className="flex items-center gap-3">
+              <FaTruck className="size-5 text-muted-foreground" />
+              <span>
+                <span className="block font-medium">
+                  {OPTIONS_LIVRAISON[0].libelle}
+                </span>
+                <span className="block text-xs text-muted-foreground">
+                  {OPTIONS_LIVRAISON[0].delai}
                 </span>
               </span>
-              <span className="font-semibold">
-                {sousTotal >= SEUIL_LIVRAISON_GRATUITE
-                  ? "Gratuit"
-                  : formaterPrix(option.frais)}
-              </span>
-            </button>
-          ))}
+            </span>
+            <span className="font-semibold text-emerald-600">Gratuit</span>
+          </div>
           <div className="flex items-center justify-between pt-2">
             <button
               type="button"

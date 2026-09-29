@@ -6,14 +6,12 @@ import Image from "next/image";
 import { usePanier } from "@/hooks/use-panier";
 import { calculerSousTotal, nombreArticles } from "@/store/cart";
 import { formaterPrix } from "@/lib/format";
-import { SEUIL_LIVRAISON_GRATUITE } from "@/lib/livraison";
 
 export default function PanierPage() {
   const { articles, modifierQuantite, retirer } = usePanier();
 
   const sousTotal = calculerSousTotal(articles);
   const totalArticles = nombreArticles(articles);
-  const restePourGratuit = Math.max(0, SEUIL_LIVRAISON_GRATUITE - sousTotal);
 
   if (articles.length === 0) {
     return (
@@ -143,18 +141,17 @@ export default function PanierPage() {
             </div>
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Livraison</dt>
-              <dd className="text-muted-foreground">
-                Calculée à l'étape suivante
-              </dd>
+              <dd className="font-medium text-emerald-600">Gratuit</dd>
+            </div>
+            <div className="flex justify-between border-t pt-3 text-base font-bold">
+              <dt>Total</dt>
+              <dd>{formaterPrix(sousTotal)}</dd>
             </div>
           </dl>
 
-          {restePourGratuit > 0 && (
-            <p className="mt-4 rounded-xl bg-accent px-3.5 py-2.5 text-xs text-muted-foreground">
-              Plus que <strong className="text-foreground">{formaterPrix(restePourGratuit)}</strong> pour la
-              livraison gratuite.
-            </p>
-          )}
+          <p className="mt-4 rounded-xl bg-accent px-3.5 py-2.5 text-xs text-muted-foreground">
+            Livraison offerte sur toute la France métropolitaine.
+          </p>
 
           <Link
             href="/commande"

@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NOM}`,
   },
   description:
-    "Perrier Bois - Votre spécialiste combustibles bois en France : granulés certifiés, bûches compressées, bois de chauffage. Livraison rapide offerte dès 75€. +120 points de retrait.",
+    "Perrier Bois - Votre spécialiste combustibles bois en France : granulés certifiés, bûches compressées, bois de chauffage. Livraison rapide et offerte. +120 points de retrait.",
   applicationName: SITE_NOM,
   formatDetection: { email: false, address: false, telephone: false },
   openGraph: {

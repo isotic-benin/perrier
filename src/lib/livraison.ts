@@ -1,25 +1,21 @@
+/**
+ * Livraison : Perrier Bois livre gratuitement sur toute la France
+ * métropolitaine. Il n'existe qu'un seul mode de livraison.
+ */
+
 export const OPTIONS_LIVRAISON = [
   {
     id: "standard",
-    libelle: "Standard",
-    frais: 6.9,
+    libelle: "Livraison standard",
+    frais: 0,
     delai: "2 à 4 jours ouvrés",
-  },
-  {
-    id: "express",
-    libelle: "Express",
-    frais: 12.9,
-    delai: "24 à 48 heures",
   },
 ] as const;
 
-export const SEUIL_LIVRAISON_GRATUITE = 75;
-
-export function calculerFraisLivraison(
-  sousTotal: number,
-  mode: string,
-): number {
-  if (sousTotal >= SEUIL_LIVRAISON_GRATUITE) return 0;
-  const option = OPTIONS_LIVRAISON.find((o) => o.id === mode);
-  return option?.frais ?? OPTIONS_LIVRAISON[0].frais;
+/**
+ * Les frais de livraison sont toujours nuls.
+ * Conservé comme point d'entrée unique de la règle de facturation.
+ */
+export function calculerFraisLivraison(): number {
+  return 0;
 }

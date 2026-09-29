@@ -1254,7 +1254,7 @@ const FAQS = [
   {
     question: "Dans quelle zone livrez-vous ?",
     reponse:
-      "Nous livrons dans toute la France métropolitaine, avec des frais de livraison selon la zone géographique. La livraison s'effectue par camion-grue ou transpalette, qui dépose la palette au plus près de votre zone de stockage.",
+      "Nous livrons dans toute la France métropolitaine. La livraison est offerte, quel que soit le montant de la commande. Elle s'effectue par camion-grue ou transpalette, qui dépose la palette au plus près de votre zone de stockage.",
     categorie: "Livraison",
     ordre: 1,
   },

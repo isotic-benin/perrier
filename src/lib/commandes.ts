@@ -3,6 +3,7 @@ import { dbConnect } from "@/lib/db";
 import Order from "@/models/Order";
 import Product from "@/models/Product";
 import { calculerFraisLivraison } from "@/lib/livraison";
+import type { ModeLivraison } from "@/lib/constants";
 
 export async function genererNumeroCommande(): Promise<string> {
   const annee = new Date().getFullYear();
@@ -37,7 +38,7 @@ export interface DonneesCreationCommande {
   adresseLivraison: AdresseCommande;
   adresseFacturation: AdresseCommande;
   methodePaiement: "virement";
-  modeLivraison: "standard" | "express";
+  modeLivraison: ModeLivraison;
   reduction?: number;
   couponApplique?: string;
 }
@@ -51,10 +52,7 @@ export async function creerCommande(donnees: DonneesCreationCommande) {
     0,
   );
   const reduction = Math.min(donnees.reduction ?? 0, sousTotal);
-  const fraisLivraison = calculerFraisLivraison(
-    sousTotal - reduction,
-    donnees.modeLivraison,
-  );
+  const fraisLivraison = calculerFraisLivraison();
   const total = Math.max(0, sousTotal - reduction + fraisLivraison);
 
   const numeroCommande = await genererNumeroCommande();

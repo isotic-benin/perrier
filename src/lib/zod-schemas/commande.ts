@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { METHODES_PAIEMENT } from "@/lib/constants";
+import { METHODES_PAIEMENT, MODES_LIVRAISON } from "@/lib/constants";
 
 export const adresseSchema = z.object({
   rue: z.string().trim().min(3, "Adresse requise"),
@@ -24,7 +24,7 @@ export const creerCommandeSchema = z.object({
   adresseFacturation: adresseSchema.optional(),
   email: z.string().email("Adresse email invalide"),
   methodePaiement: z.enum(METHODES_PAIEMENT),
-  modeLivraison: z.enum(["standard", "express"]),
+  modeLivraison: z.enum(MODES_LIVRAISON).default("standard"),
   reduction: z.coerce.number().min(0).default(0),
   couponApplique: z.string().default(""),
 });

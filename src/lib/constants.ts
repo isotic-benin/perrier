@@ -30,6 +30,10 @@ export const METHODES_PAIEMENT = ["virement"] as const;
 
 export type MethodePaiement = (typeof METHODES_PAIEMENT)[number];
 
+export const MODES_LIVRAISON = ["standard"] as const;
+
+export type ModeLivraison = (typeof MODES_LIVRAISON)[number];
+
 export const STATUTS_AVIS = ["en_attente", "approuve", "rejete"] as const;
 
 export type StatutAvis = (typeof STATUTS_AVIS)[number];
